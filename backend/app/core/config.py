@@ -10,12 +10,8 @@ class Settings(BaseSettings):
     api_host: str
     api_port: int
 
-    mongo_host: str
-    mongo_port: int
-    mongo_database: str
-
-    mongo_username: str = ""
-    mongo_password: str = ""
+    mongo_uri: str
+    mongo_database: str = "network_monitor"
 
     log_level: str
 
