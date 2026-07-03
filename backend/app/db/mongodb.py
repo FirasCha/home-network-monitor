@@ -51,7 +51,7 @@ class MongoManager:
 
             client.admin.command("ping")
 
-            database = client[settings.mongo_database]
+            database = self._get_database(client)
 
             self._client = client
             self._database = database
@@ -79,6 +79,17 @@ class MongoManager:
         self._database = None
 
         logger.info("MongoDB connection closed.")
+
+    def _get_database(
+        self,
+        client: MongoClient[dict[str, Any]],
+    ) -> Database[dict[str, Any]]:
+        """Return the configured MongoDB database."""
+
+        if not settings.mongo_database:
+            raise ValueError("MONGO_DATABASE is not configured.")
+
+        return client[settings.mongo_database]
 
 
 mongo_manager = MongoManager()
